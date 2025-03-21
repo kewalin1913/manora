@@ -120,10 +120,9 @@ $sql .= " LIMIT $start,$rows_per_page";
                         </div>
 
                         <div class="card-body">
-                            <div class="card-text col-12 col-sm-8 border rounded-4 p-2 text-start" style="font-size: 1.2rem;">
-                                <pre class="text-start"><?php echo ($row['poe_detail']); ?></pre>
+                            <div class="card-text col-12 col-sm-8 border mx-auto d-block rounded-4 p-2" style="font-size: 1.2rem;">
+                                <pre class="text-left"><?php echo ($row['poe_detail']); ?></pre>
                             </div>
-
                         </div>
                     </div>
 
