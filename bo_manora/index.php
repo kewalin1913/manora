@@ -15,7 +15,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>มโนราห์ประศิลป์ ดาวรุ่ง</title>
+    <title>มโนราห์ ประสิทธิ์ศิลป์ ดาวรุ่ง</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -78,7 +78,7 @@
                             <h1 class="text-center">ยินดีต้อนรับสู่</h1>
                             <img src="img/icon/manora-logo.ico" height="300" class="my-5 mx-auto d-block"> 
                             <h3 class="text-center">พัฒนาเว็บไซต์มโนราห์ตามองค์ประกอบของเว็บไซต์ สื่อประชาสัมพันธ์มโนราห์ กรณีศึกษา</h3>
-                            <h3 class="text-center">คณะมโนราห์ ประศิลป์ ดาวรุ่ง</h3>    
+                            <h3 class="text-center">คณะมโนราห์ ประสิทธิ์ศิลป์ ดาวรุ่ง</h3>    
                         </div>
                     </div>
                 </div>

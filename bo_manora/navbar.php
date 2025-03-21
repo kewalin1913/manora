@@ -17,6 +17,7 @@
                         <div class="dropdown-menu dropdown-menu-end bg-light border-0 rounded-0 rounded-bottom m-0">
                             <a href="myprofile.php" class="dropdown-item">ข้อมูลของฉัน</a>
                             <a href="resetpwd.php" class="dropdown-item">เปลี่ยนรหัสผ่าน</a>
+                            <a href="admin.php" class="dropdown-item">จัดการผู้ดูแลระบบ</a>
                             <a href="logout.php" class="dropdown-item">ออกจากระบบ</a>
                         </div>
                     </div>

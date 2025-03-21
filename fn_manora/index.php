@@ -1,5 +1,23 @@
 <?php
     include "conn/strconn.php";
+    $tb = "tb_poetry";
+    $sql = "SELECT * FROM $tb";
+
+    if(isset($_GET['strSearch'])){
+        $strSearch=$_GET['strSearch'];
+        $txtSearch = $_GET['txtSearch'];
+
+        if($strSearch == "Y"){
+            $sql.= " WHERE poe_name LIKE '%".$txtSearch."%'";
+        }
+    }else{
+        $strSearch = "";
+        $txtSearch = "";
+    }
+    // กำหนดหน้า
+    $rows_per_page = 12;
+    include_once "lib/pagination/pagination.php";
+    $sql.=" LIMIT $start,$rows_per_page"; 
 ?>
 <!DOCTYPE html>
 <html lang="en">

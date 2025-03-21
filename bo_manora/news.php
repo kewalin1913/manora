@@ -37,7 +37,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>มโนราห์ประศิลป์ ดาวรุ่ง</title>
+    <title>มโนราห์ประสิทธิ์ศิลป์ ดาวรุ่ง</title>
     <meta content="width=device-width, admial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -369,8 +369,8 @@
 
                                 <!-- Button -->
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="submit" name="submit" class="btn btn-success">Submit</button>
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                                    <button type="submit" name="submit" class="btn btn-success">ตกลง</button>
                                 </div>
                             </form>
                         </div>                    

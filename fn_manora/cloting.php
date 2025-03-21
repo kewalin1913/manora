@@ -47,6 +47,8 @@
     <!---------- jQuery ---------->
     <script src="js/jQuery-3.7.1.js"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/masonry-layout@4.2.2/dist/masonry.pkgd.min.js" integrity="sha384-GNFwBvfVxBkLMJpYMOABq3c+d3KnQxudP/mGPkzpZSTYykLBNsZEnG2D9G/X/+7D" crossorigin="anonymous" async></script>
+
 </head>
 <body>
     <!------------ Navbar Header ------------>
@@ -106,7 +108,7 @@
 
             <!-- รายละเอียด -->
             <div class="container">
-                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4 p-4">
+                <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 g-4" >
                     <?php
                         $result = $conn->query($sql);
                         while($row=$result->fetch_assoc()){                        

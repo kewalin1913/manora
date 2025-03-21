@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>มโนราห์ ประศิลป์ ดาวรุ่ง</title>
+    <title>มโนราห์ประสิทธิ์ศิลป์ ดาวรุ่ง</title>
 
     <!-- Favicon -->
     <link href="img/icon/manora-logo.ico" rel="icon">
@@ -57,7 +57,7 @@
                         <form action="signin_action.php" method="post">
                             <div class="text-center justify-content-between mb-3">                                                            
                                 <img src="img/icon/logo-manora1.png" alt="" width="40" class="mb-3">
-                                <h3 class="text-primary"> มโนราห์ ประศิลป์ ดาวรุ่ง</h3>                                
+                                <h3 class="text-primary"> มโนราห์ประสิทธิ์ศิลป์ ดาวรุ่ง</h3>                                
                             </div>
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="floatingInput" name="username" placeholder="Username">

@@ -1,3 +1,7 @@
+<?php
+    include "conn/strconn.php";
+    global $txtSearch;
+?>
 <div class="container-fluid">
             <!-- logo brandner -->
             <a class="navbar-brand d-flex" href="#">

@@ -6,7 +6,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>มโนราห์ประศิลป์ ดาวรุ่ง</title>
+    <title>มโนราห์ประสิทธิ์ศิลป์ ดาวรุ่ง</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="" name="keywords">
     <meta content="" name="description">
@@ -61,7 +61,7 @@
                     <img src="img/icon/logo-manora1.png" alt="" width="15px">
                     <div class="ms-2">
                     <h1 class="border ms-0 lh-1">มโนราห์</h1>
-                    <span class="fs-6 border">ประศิลป์ ดาวรุ่ง</span>                
+                    <span class="fs-6 border">ประสิทธิ์ศิลป์ ดาวรุ่ง</span>                
                     
                     </div>
                 </a>
