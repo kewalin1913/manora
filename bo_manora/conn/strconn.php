@@ -1,7 +1,7 @@
 <?php
     // ประกาศตัวแปร
     $servername="localhost";
-    $username="manora-db";
+    $username="mrlu_manora";
     $password="%1ekg8N70";
     $dbname="manora-db";
 
