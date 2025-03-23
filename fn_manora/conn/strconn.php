@@ -1,10 +1,14 @@
 <?php
     // ประกาศตัวแปร
     $servername="localhost";
-    $username="mrlu_manora";
-    $password="%1ekg8N70";
-    $dbname="manora-db";
+    $username="root";
+    $password="";
+    $dbname="db_manora";
 
+    // $servername="localhost";
+    // $username="mrlu_manora";
+    // $password="%1ekg8N70";
+    // $dbname="manora-db";
     // create connection
     //$conn=mysqli_connect($servername,$username,$password,$dbname);
     $conn=new mysqli($servername,$username,$password,$dbname);

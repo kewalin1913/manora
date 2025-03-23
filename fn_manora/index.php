@@ -145,6 +145,7 @@
                         $result=$conn->query($sql);
                         while($row=$result->fetch_assoc()){
                     ?>
+                    <a href="news_show.php?news_id=<?= $row['news_id']; ?>" class="text-decoration-none">
                         <div class="col">
                             <div class="card h-100">
                             <?php

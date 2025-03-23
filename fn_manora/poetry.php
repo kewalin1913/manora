@@ -106,33 +106,90 @@ $sql .= " LIMIT $start,$rows_per_page";
         <div class="m-auto mb-4 p-3 text-center h3 text-bg-success border border-3 border-top-0 border-success-subtle rounded-bottom-5">
             บทกลอน มโนราห์
         </div>
-
-        <!-- รายละเอียด -->
         <div class="container">
-            <div class="row row-cols-1 g-4 mb-3">
-                <?php
-                $result = $conn->query($sql);
-                while ($row = $result->fetch_assoc()) {
-                ?>
-                    <div class="card px-0">
-                        <div class="card-header">
-                            <h3><?= $row['poe_name']; ?></h3>
-                        </div>
+    <div class="row row-cols-1 g-4 mb-3">
+        <?php
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+            $lines = explode("\n", trim($row['poe_detail']));
+        ?>
+            <div class="card px-0">
+                <div class="card-header">
+                    <h3><?= $row['poe_name']; ?></h3>
+                </div>
 
-                        <div class="card-body">
-                            <div class="card-text col-12 col-sm-8 border mx-auto d-block rounded-4 p-2" style="font-size: 1.2rem;">
-                                <pre class="text-left"><?php echo ($row['poe_detail']); ?></pre>
+                <div class="card-body">
+                    <div class="poem-grid">
+                        <?php
+                        foreach ($lines as $line) {
+                            $parts = preg_split('/\s{2,}/', trim($line));
+                            $left = $parts[0] ?? '';
+                            $right = $parts[1] ?? '';
+                        ?>
+                            <div class="poem-row">
+                                <div class="poem-left"><?= htmlspecialchars($left); ?></div>
+                                <div class="poem-right"><?= htmlspecialchars($right); ?></div>
                             </div>
-                        </div>
+                        <?php } ?>
                     </div>
+                </div>
 
-                    <div class="card-footer text-body-secondary text-end">
-                        ผู้ประพันธ์ : <?= $row['poe_author']; ?>
-                    </div>
+                <div class="card-footer text-body-secondary text-end">
+                    ผู้ประพันธ์ : <?= $row['poe_author']; ?>
+                </div>
             </div>
         <?php } ?>
-        </div>
     </div>
+</div>
+
+
+<style>
+.container {
+    max-width: 900px;  /* กำหนดความกว้างสูงสุด */
+    margin: 0 auto;     /* จัดตำแหน่งให้ container อยู่กลาง */
+    padding: 10px;      /* กำหนด padding เล็กน้อย */
+}
+
+.row {
+    display: flex;
+    justify-content: center;  /* จัดตำแหน่ง row ให้อยู่กลาง */
+    flex-wrap: wrap;          /* ให้คอลัมน์ซ้อนกันในแถว */
+}
+
+.poem-grid {
+    display: grid;
+    gap: 2px;  /* ลดความห่างระหว่างแถว */
+    justify-items: center;  /* จัดเนื้อหาทั้งหมดให้อยู่กลาง */
+}
+
+.poem-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;  /* ลดช่องว่างระหว่าง 2 คอลัมน์ให้ชิดมากขึ้น */
+    text-align: left;
+    font-size: 1.2rem;
+    width: 100%;  /* ทำให้กริดครอบคลุมความกว้างทั้งหมด */
+}
+
+.poem-row .left,
+.poem-row .right {
+    margin: 0;  /* เอามาร์จิ้นออกเพื่อให้ชิดกันมากขึ้น */
+}
+
+.poem-row .left {
+    text-align: center; /* จัดเนื้อหาฝั่งซ้ายให้อยู่กลาง */
+}
+
+.poem-row .right {
+    text-align: left; /* จัดเนื้อหาฝั่งขวาให้ชิดซ้าย */
+}
+
+</style>
+
+            </div>
+    </div>
+</div>
+
 
     <!-- หน้าข้อมูล -->
     <div class="d-flex me-2 justify-content-center">
@@ -153,3 +210,5 @@ $sql .= " LIMIT $start,$rows_per_page";
 </body>
 
 </html>
+
+
