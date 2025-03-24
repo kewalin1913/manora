@@ -261,7 +261,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $i = 1;
+                                            $i = $start + 1;
                                             $resultadm = $conn->query($sql);  
                                             if ($resultadm->num_rows == 0){
                                                 echo "<p><td colspan='8' class='text-center'>No data available</td></p>";
@@ -269,7 +269,7 @@
                                                 while($row=$resultadm->fetch_assoc()){
                                         ?>
                                         <tr>
-                                            <th scope="row"><?php echo $row['news_id'];?></th>
+                                            <th scope="row"><?php echo $i;?></th>
                                             <td><?php echo $row['news_title'];?></td>     
                                             <td><?php echo substr($row['news_detail'],0,500);?></td> 
                                             <td><?php echo $row['news_post'];?></td>

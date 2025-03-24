@@ -1,31 +1,31 @@
 <?php
-    include_once "chk_login.php";
-    include_once "conn/strconn.php";
+include_once "chk_login.php";
+include_once "conn/strconn.php";
 
-    $adm_id=$_SESSION['adm_id'];
+$adm_id = $_SESSION['adm_id'];
 
-    $sqladm="select * from tb_admin where adm_id='$adm_id'";
-    $resultadm = $conn->query($sqladm);
-    $row=$resultadm->fetch_assoc();   
-    
-    $tb = "tb_admin";
-    $sql = "SELECT * FROM $tb";
+$sqladm = "select * from tb_admin where adm_id='$adm_id'";
+$resultadm = $conn->query($sqladm);
+$row = $resultadm->fetch_assoc();
 
-    if(isset($_GET['strSearch'])){
-        $strSearch=$_GET['strSearch'];
-        $txtSearch = $_GET['txtSearch'];
+$tb = "tb_admin";
+$sql = "SELECT * FROM $tb";
 
-        if($strSearch == "Y"){
-            $sql.= " WHERE adm_name LIKE '%".$txtSearch."%'";
-        }
-    }else{
-        $strSearch = "";
-        $txtSearch = "";
+if (isset($_GET['strSearch'])) {
+    $strSearch = $_GET['strSearch'];
+    $txtSearch = $_GET['txtSearch'];
+
+    if ($strSearch == "Y") {
+        $sql .= " WHERE adm_name LIKE '%" . $txtSearch . "%'";
     }
+} else {
+    $strSearch = "";
+    $txtSearch = "";
+}
 
-    include_once "lib/pagination/pagination.php";
+include_once "lib/pagination/pagination.php";
 
-    $sql.=" LIMIT $start,$rows_per_page"; 
+$sql .= " LIMIT $start,$rows_per_page";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,122 +73,122 @@
 </head>
 
 <body>
-<script>
-        $(document).ready(function(){
+    <script>
+        $(document).ready(function() {
             //+++++ ปุ่มเพิ่ม +++++
-            $(".add-sub").click(function() {  //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
+            $(".add-sub").click(function() { //คลิกปุ่ม "เพิ่ม"
                 $('#frm-modal')[0].reset();
                 $('#title-modal').text('เพิ่มผู้ดูแลระบบ');
                 $('.adm_name').focus();
-                $('#action').val('add');      
-                $('.img_adm').attr('src','');      
+                $('#action').val('add');
+                $('.img_adm').attr('src', '');
             });
 
             //+++++ ปุ่มแก้ไข +++++
-            $(".edit-sub").click(function(){
+            $(".edit-sub").click(function() {
                 var tr = $(this).parent().parent();
                 var imgadm = $(this).attr('data-img')
 
                 $('#title-modal').text('แก้ไขผู้ดูแลระบบ');
-                $('.action').val('edit_all'); 
+                $('.action').val('edit_all');
                 $('.adm_id').val($(this).attr('data-id'));
                 $('.adm_name').val(tr.children(':eq(1)').text());
                 $('.adm_lname').val(tr.children(':eq(2)').text());
                 $('.adm_username').val(tr.children(':eq(3)').text());
-                $('.adm_status').val($(this).attr('data-adm_status'));   
-                $('.img_adm').attr('src',imgadm);    
-                
+                $('.adm_status').val($(this).attr('data-adm_status'));
+                $('.img_adm').attr('src', imgadm);
+
             });
 
             //+++++ ปุ่มบันทึก +++++
-            $("#frm-modal").submit(function(e){
-                if (frm.adm_name.value == ''){
+            $("#frm-modal").submit(function(e) {
+                if (frm.adm_name.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ ชื่อผู้ดูแลระบบ",
                         icon: "question"
-                    });                    
-                    return false;			
+                    });
+                    return false;
                 }
 
-                if (frm.adm_lname.value == ''){
+                if (frm.adm_lname.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ นามสกุลผู้ดูแลระบบ",
                         icon: "question"
-                    });                    
-                    return false;			
+                    });
+                    return false;
                 }
 
-                if (frm.adm_username.value == ''){
+                if (frm.adm_username.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ USERNAME",
                         icon: "question"
                     });
-                    return false;			
+                    return false;
                 }
 
-                if (frm.adm_pwd.value == ''){
+                if (frm.adm_pwd.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ รหัสผ่าน ",
                         icon: "question"
                     });
-                    return false;			
+                    return false;
                 }
 
-                if (frm.adm_repwd.value == ''){
+                if (frm.adm_repwd.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ รหัสผ่านอีกครั้ง",
                         icon: "question"
                     });
-                    return false;			
+                    return false;
                 }
 
-                if (frm.adm_pwd.value !== frm.adm_repwd.value){
+                if (frm.adm_pwd.value !== frm.adm_repwd.value) {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "รหัสผ่านไม่ตรงกัน กรุณาใส่ใหม่อีกครั้ง",
                         icon: "question"
                     });
-                    return false;			
-                }     
-                
-                if (frm.adm_status.value == ''){
+                    return false;
+                }
+
+                if (frm.adm_status.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้เลือกสถานะ !!!",
                         icon: "question"
                     });
-                    return false;			
-                } 
+                    return false;
+                }
                 // เอาข้อมูลใน form มาเก็บในตัวแปร
                 e.preventDefault();
                 // let frmData = $(this).serialize();
                 var frmData = new FormData(this);
-                
+
                 // ส่งข้อมูลไปทำในไฟล์ Action
                 $.ajax({
-                    url : "admin_action.php",
+                    url: "admin_action.php",
                     type: "post",
                     data: frmData,
-                    contentType:false,
-                    processData:false,                    
-                    success: function(data){
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
                         let result = JSON.parse(data);
-                        if (result.status == "success"){
+                        if (result.status == "success") {
                             console.log("Success", result)
                             swal.fire({
-                                title :"สำเร็จ",
-                                text : result.msg,
-                                icon :result.status,
-                                timer : 3000
-                            }).then(function(){
-                                window.location.href="admin.php";
+                                title: "สำเร็จ",
+                                text: result.msg,
+                                icon: result.status,
+                                timer: 3000
+                            }).then(function() {
+                                window.location.href = "admin.php";
                             });
-                        }else{
+                        } else {
                             console.log("Error", result)
                             swal.fire("ล้มเหลว", result.msg, result.status);
                         }
@@ -197,16 +197,20 @@
             });
 
             //+++++ ปุ่มลบ +++++
-            $(".del-sub").click(function(e){
+            $(".del-sub").click(function(e) {
                 e.preventDefault();
-                var id = $(this).attr('data-id');   
+                var id = $(this).attr('data-id');
                 var img = $(this).attr('data-img');
 
-                DelConfirm({'action': 'del', 'adm_id': id, 'adm_img': img});    
+                DelConfirm({
+                    'action': 'del',
+                    'adm_id': id,
+                    'adm_img': img
+                });
             })
         })
 
-        function DelConfirm(dataJSON){
+        function DelConfirm(dataJSON) {
             Swal.fire({
                 title: "คูณแน่ใจ?",
                 text: "You won't be able to revert this!",
@@ -216,29 +220,29 @@
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, delete it!",
                 showLoaderOnConfirm: true,
-                preConfirm:function(){
-                    return new Promise(function(){
+                preConfirm: function() {
+                    return new Promise(function() {
                         $.ajax({
-                            url : "admin_action.php",
-                            type : "post",
-                            data : dataJSON,   
-                            success: function(data){
+                            url: "admin_action.php",
+                            type: "post",
+                            data: dataJSON,
+                            success: function(data) {
                                 let result = JSON.parse(data);
-                                if (result.status == "success"){
+                                if (result.status == "success") {
                                     console.log("Success", result)
                                     swal.fire({
-                                        title :"สำเร็จ",
-                                        text : result.msg,
-                                        icon : result.status,
-                                        timer : 3000
-                                    }).then(function(){
+                                        title: "สำเร็จ",
+                                        text: result.msg,
+                                        icon: result.status,
+                                        timer: 3000
+                                    }).then(function() {
                                         location.reload();
                                     });
-                                }else{
+                                } else {
                                     console.log("Error", result)
                                     swal.fire("ล้มเหลว", result.msg, result.status);
                                 }
-                            }                         
+                            }
                         })
 
                     })
@@ -257,14 +261,14 @@
         <!-- Spinner End -->
 
         <!-- Sidebar Start -->
-         
-            <?php include_once "sidebar.php";?>
+
+        <?php include_once "sidebar.php"; ?>
         <!-- Sidebar End -->
 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <?php include_once "navbar.php";?>
+            <?php include_once "navbar.php"; ?>
             <!-- Navbar End -->
 
             <!-- Table Start -->
@@ -276,16 +280,16 @@
                             <div class="search d-flex align-items-center">
                                 <h4 class="mx-3">ผู้ดูแลระบบ</h4>
                                 <!-- search -->
-                                                             
-                                <form class="frm-search" action="" method="get">                                 
+
+                                <form class="frm-search" action="" method="get">
                                     <div class="input-group mb-3">
                                         <input type="hidden" name="strSearch" value="Y">
-                                        <input type="text" name="txtSearch" class="form-control" value="<?php echo $txtSearch;?>" placeholder="" aria-label="Button" aria-describedby=""/>
+                                        <input type="text" name="txtSearch" class="form-control" value="<?php echo $txtSearch; ?>" placeholder="" aria-label="Button" aria-describedby="" />
                                         <button class="btn btn-outline-secondary" type="submit" id="">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </button>
-                                    </div> 
-                                 </form> 
+                                    </div>
+                                </form>
                                 <!-- end search -->
                                 <div class="flex-grow-1"></div>
                                 <button type="button" id="add-sub" class="add-sub btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo">
@@ -293,8 +297,8 @@
                                 </button>
                             </div>
                             <!-- end header table -->
-                            
-                            <div class="table-responsive-xl" >
+
+                            <div class="table-responsive-xl">
                                 <table class="table ">
                                     <thead>
                                         <tr>
@@ -303,55 +307,56 @@
                                             <th scope="col-3">นามสกุลผู้ดูแลระบบ</th>
                                             <th scope="col-1">ชื่อผู้ใช้</th>
                                             <th scope="col-1">สถานะ</th>
-                                            <th scope="col-1">รูปถ่าย</th>                                            
+                                            <th scope="col-1">รูปถ่าย</th>
                                             <th scope="col-2">คำสั่ง</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <?php                                            
-                                            $resultadm = $conn->query($sql);  
-                                            if ($resultadm->num_rows < 0){
-                                                echo "<p><td colspan='5' class='text-center'>No data available</td></p>";
-                                            }else{
-                                                while($row=$resultadm->fetch_assoc()){
+                                        <?php
+                                        $resultadm = $conn->query($sql);
+                                        if ($resultadm->num_rows < 0) {
+                                            echo "<p><td colspan='5' class='text-center'>No data available</td></p>";
+                                        } else {
+                                            while ($row = $resultadm->fetch_assoc()) {
                                         ?>
-                                        <tr>
-                                            <th scope="row"><?php echo $row['adm_id'];?></th>
-                                            <td><?php echo $row['adm_name'];?></td>
-                                            <td><?php echo $row['adm_lname'];?></td>
-                                            <td><?php echo $row['adm_username'];?></td>
-                                            <td>
-                                                <?php 
-                                                    if($row['adm_status']=='0'){
-                                                        echo "ยกเลิก";
-                                                    }else{
-                                                        echo "ปกติ";
-                                                    }
-                                                ?>
-                                            </td>
-                                            <td><img class="admimg rounded-circle" src="img/adm/<?php echo $row['adm_img'];?>" style="width: 50px; height:50px;" alt=""></td>
-                                            <td>
-                                                <?php if($row['adm_id']!="AM001"){?>
-                                                <botton class="edit-sub btn btn-square btn-outline-secondary m-0" id="edit-sub" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo" 
-                                                data-id="<?=$row["adm_id"];?>" data-adm_status="<?=$row["adm_status"];?>" data-img="img/adm/<?=$row["adm_img"];?>" >
-                                                    <i class="far fa-edit"></i>
-                                                </botton>
-                                                
-                                                <botton class="del-sub btn btn-square btn-outline-danger m-0" id="del-sub" data-id="<?=$row["adm_id"];?>" data-img="<?=$row["adm_img"];?>">
-                                                    <i class="far fa-trash-alt"></i>
-                                                </botton>
-                                                <?php }?>
-                                            </td>
-                                        </tr>
-                                        <?php }}?>
+                                                <tr>
+                                                    <th scope="row"><?php echo $row['adm_id']; ?></th>
+                                                    <td><?php echo $row['adm_name']; ?></td>
+                                                    <td><?php echo $row['adm_lname']; ?></td>
+                                                    <td><?php echo $row['adm_username']; ?></td>
+                                                    <td>
+                                                        <?php
+                                                        if ($row['adm_status'] == '0') {
+                                                            echo "ยกเลิก";
+                                                        } else {
+                                                            echo "ปกติ";
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                    <td><img class="admimg rounded-circle" src="img/adm/<?php echo $row['adm_img']; ?>" style="width: 50px; height:50px;" alt=""></td>
+                                                    <td>
+                                                        <?php if ($row['adm_id'] != "AM001") { ?>
+                                                            <botton class="edit-sub btn btn-square btn-outline-secondary m-0" id="edit-sub" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo"
+                                                                data-id="<?= $row["adm_id"]; ?>" data-adm_status="<?= $row["adm_status"]; ?>" data-img="img/adm/<?= $row["adm_img"]; ?>">
+                                                                <i class="far fa-edit"></i>
+                                                            </botton>
+
+                                                            <botton class="del-sub btn btn-square btn-outline-danger m-0" id="del-sub" data-id="<?= $row["adm_id"]; ?>" data-img="<?= $row["adm_img"]; ?>">
+                                                                <i class="far fa-trash-alt"></i>
+                                                            </botton>
+                                                        <?php } ?>
+                                                    </td>
+                                                </tr>
+                                        <?php }
+                                        } ?>
                                     </tbody>
                                 </table>
-                            </div>                            
+                            </div>
                             <div>
-                                <div class="d-flex me-2" >
+                                <div class="d-flex me-2">
                                     <?php include_once "lib/pagination/pagination-btn.php"; ?>
-                                </div>                                
-                            </div>    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -366,45 +371,55 @@
                             <h5 id="title-modal" class="modal-title"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    
+
                         <div class="modal-body">
                             <form enctype="multipart/form-data" id="frm-modal" name="frm">
                                 <!-- Data Detail -->
-                                 <input type="text" name="action" id="action" class="action">
-                                 <input type="text" name="adm_id" id="adm_id" class="adm_id">
+
+                                <!-- ซ่อนช่องที่ไม่จำเป็น -->
+                                <style>
+                                    #action,
+                                    #adm_id {
+                                        display: none;
+                                    }
+                                </style>
+
+                                <!-- ช่องที่ซ่อนไว้ -->
+                                <input type="text" name="action" id="action" class="action" >
+                                <input type="text" name="adm_id" id="adm_id" class="adm_id" >
 
                                 <div class="form-floating mb-3">
                                     <input type="text" name="adm_name" class="adm_name form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">ชื่อ :</label>
-                                </div>   
+                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="text" name="adm_lname" class="adm_lname form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">นามสกุล :</label>
-                                </div>                                 
+                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="text" name="adm_username" class="adm_username form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">ชื่อผู้ใช้ :</label>
-                                </div> 
+                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="password" name="adm_pwd" class="adm_pwd InputPwd form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">รหัสผ่าน :</label>
                                     <i class="fa-regular fa-eye-slash ShowPwd"></i>
-                                </div> 
+                                </div>
                                 <div class="form-floating mb-3">
                                     <input type="password" name="adm_repwd" class="adm_repwd InputPwd2 form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">ยื่นยันรหัสผ่าน :</label>
                                     <i class="fa-regular fa-eye-slash ShowPwd2"></i>
-                                </div> 
+                                </div>
 
                                 <!-- สถานะเข้าใช้งานระบบ -->
                                 <div class="form-floating mb-3">
                                     <select class="adm_status form-select" id="floatingSelect adm_status" name="adm_status" aria-label="Floating label select example">
-                                        <option value="" selected>-- เลือก --</option>                                
-                                        <option value="1" >ปกติ</option>      
-                                        <option value="0" >ยกเลิก</option> 
+                                        <option value="" selected>-- เลือก --</option>
+                                        <option value="1">ปกติ</option>
+                                        <option value="0">ยกเลิก</option>
                                     </select>
                                     <label for="floatingSelect">สถานะเข้าใช้งานระบบ : </label>
-                                </div>  
+                                </div>
 
                                 <!-- Data Image -->
                                 <div class="mb-3 text-center">
@@ -417,14 +432,14 @@
                                     <button type="submit" name="submit" class="btn btn-success">ตกลง</button>
                                 </div>
                             </form>
-                        </div>                    
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- end Modal Add -->
 
             <!-- Footer Start -->
-                <?php include_once "footer.php";?>
+            <?php include_once "footer.php"; ?>
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -443,7 +458,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>    
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
@@ -454,8 +469,8 @@
 
         imgInput.onchange = evt => {
             const [file] = imgInput.files;
-                if (file) {
-                    previewImg.src = URL.createObjectURL(file)
+            if (file) {
+                previewImg.src = URL.createObjectURL(file)
             }
         }
     </script>
@@ -463,29 +478,29 @@
     <!-- show Password -->
     <script>
         const ShowPwd = document.querySelector(".ShowPwd"),
-              input = document.querySelector(".InputPwd");
-              ShowPwd.addEventListener("click", () =>{             
-                  if(input.type ==="password"){
-                    input.type = "text";
-                    ShowPwd.classList.replace("fa-eye-slash", "fa-eye");
-                  }else{
-                    input.type = "password";
-                    ShowPwd.classList.replace("fa-eye","fa-eye-slash");
-                  }
-              })
+            input = document.querySelector(".InputPwd");
+        ShowPwd.addEventListener("click", () => {
+            if (input.type === "password") {
+                input.type = "text";
+                ShowPwd.classList.replace("fa-eye-slash", "fa-eye");
+            } else {
+                input.type = "password";
+                ShowPwd.classList.replace("fa-eye", "fa-eye-slash");
+            }
+        })
     </script>
     <script>
         const ShowPwd2 = document.querySelector(".ShowPwd2"),
-              input2 = document.querySelector(".InputPwd2");
-              ShowPwd2.addEventListener("click", () =>{                
-                  if(input2.type ==="password"){
-                    input2.type = "text";
-                    ShowPwd2.classList.replace("fa-eye-slash", "fa-eye");
-                  }else{
-                    input2.type = "password";
-                    ShowPwd2.classList.replace("fa-eye","fa-eye-slash");
-                  }
-              })
+            input2 = document.querySelector(".InputPwd2");
+        ShowPwd2.addEventListener("click", () => {
+            if (input2.type === "password") {
+                input2.type = "text";
+                ShowPwd2.classList.replace("fa-eye-slash", "fa-eye");
+            } else {
+                input2.type = "password";
+                ShowPwd2.classList.replace("fa-eye", "fa-eye-slash");
+            }
+        })
     </script>
 </body>
 

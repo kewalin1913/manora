@@ -267,7 +267,7 @@
                                     </thead>
                                     <tbody>
                                         <?php                                                                                        
-                                            
+                                            $i = 1;
                                             $resulttnews = $conn->query($sql);  
                                             if ($resulttnews->num_rows == 0){
                                                 echo "<p><td colspan='5' class='text-center'>No data available</td></p>";
@@ -275,7 +275,7 @@
                                                 while($row=$resulttnews->fetch_assoc()){
                                         ?>
                                         <tr>
-                                            <th scope="row"><?php echo $row['poe_id'];?></th>
+                                            <th scope="row"><?php echo $i++;?></th>
                                             <td><?php echo $row['poe_name'];?></td>                                             
                                             <td><?php echo $row['poe_author'];?></td>  
                                             <td>

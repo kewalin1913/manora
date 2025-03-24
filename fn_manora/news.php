@@ -72,22 +72,22 @@
             <div class="carousel-item active c-item" data-bs-interval="10000">
                 <img src="img/carousel/p1.jpg" class="d-block w-100 c-img" alt="..." >
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Some representative placeholder content for the first slide.</p>
+                    <h5>การเข้าโรงครู</h5>
+                    <p>ต.หนองหงส์ อ.ทุ่งสง จ.นครศรีธรรมราช</p>
                 </div>
             </div>
             <div class="carousel-item c-item" data-bs-interval="8000">
                 <img src="img/carousel/p3.jpg" class="d-block w-100 c-img" alt="..." >
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Some representative placeholder content for the second slide.</p>
+                    <h5>รำโบราณให้ทานไฟ</h5>
+                    <p>(วัดวังขรี) ต.นาไม้ไผ่ อ.ทุ่งสง จ.นครศรีธรรมราช</p>
                 </div>
             </div>
             <div class="carousel-item c-item" data-bs-interval="8000">
                 <img src="img/carousel/p4.jpg" class="d-block w-100 c-img" alt="...">
                 <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
+                    <h5>รำโบราณให้ทานไฟ<</h5>
+                    <p>ต.นาไม้ไผ่ อ.ทุ่งสง จ.นครศรีธรรมราช</p>
                 </div>
             </div>
         </div>

@@ -1,30 +1,30 @@
 <?php
-    include_once "chk_login.php";
-    include_once "conn/strconn.php";
+include_once "chk_login.php";
+include_once "conn/strconn.php";
 
-    $adm_id=$_SESSION['adm_id'];
+$adm_id = $_SESSION['adm_id'];
 
-    $sqladm="select * from tb_admin where adm_id='$adm_id'";
-    $resultadm = $conn->query($sqladm);
-    $row=$resultadm->fetch_assoc();   
-    
-    $tb = "tb_musical";
-    $sql = "SELECT * FROM $tb";
+$sqladm = "select * from tb_admin where adm_id='$adm_id'";
+$resultadm = $conn->query($sqladm);
+$row = $resultadm->fetch_assoc();
 
-    if(isset($_GET['strSearch'])){
-        $strSearch=$_GET['strSearch'];
-        $txtSearch = $_GET['txtSearch'];
+$tb = "tb_musical";
+$sql = "SELECT * FROM $tb";
 
-        if($strSearch == "Y"){
-            $sql.= " WHERE mus_name LIKE '%".$txtSearch."%'";
-        }
-    }else{
-        $strSearch = "";
-        $txtSearch = "";
+if (isset($_GET['strSearch'])) {
+    $strSearch = $_GET['strSearch'];
+    $txtSearch = $_GET['txtSearch'];
+
+    if ($strSearch == "Y") {
+        $sql .= " WHERE mus_name LIKE '%" . $txtSearch . "%'";
     }
+} else {
+    $strSearch = "";
+    $txtSearch = "";
+}
 
-    include_once "lib/pagination/pagination.php";
-    $sql.=" LIMIT $start,$rows_per_page"; 
+include_once "lib/pagination/pagination.php";
+$sql .= " LIMIT $start,$rows_per_page";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -72,61 +72,61 @@
 </head>
 
 <body>
-<script>
-        $(document).ready(function(){
+    <script>
+        $(document).ready(function() {
             //+++++ ปุ่มเพิ่ม +++++
-            $(".add-sub").click(function() {  //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
+            $(".add-sub").click(function() { //คลิกปุ่ม "เพิ่มผู้จัดส่งสินค้า"
                 $('#frm-modal')[0].reset();
                 $('#title-modal').text('เพิ่มเครื่องดนตรี');
                 $('mus_name').focus();
-                $('#action').val('add');                   
+                $('#action').val('add');
             });
 
             //+++++ ปุ่มบันทึก +++++
-            $("#frm-modal").submit(function(e){
-                if (frm.mus_name.value == ''){
+            $("#frm-modal").submit(function(e) {
+                if (frm.mus_name.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ ชื่อเครื่องดนตรี",
                         icon: "question"
-                    });                    
-                    return false;			
+                    });
+                    return false;
                 }
 
-                if (frm.mus_detail.value == ''){
+                if (frm.mus_detail.value == '') {
                     Swal.fire({
                         title: "ผิดพลาด?",
                         text: "ยังไม่ได้ใส่ รายละเอียดเครื่องดนตรี",
                         icon: "question"
-                    });                    
-                    return false;			
+                    });
+                    return false;
                 }
-              
+
                 // เอาข้อมูลใน form มาเก็บในตัวแปร
                 e.preventDefault();
                 // let frmData = $(this).serialize();
                 var frmData = new FormData(this);
-                
+
                 // ส่งข้อมูลไปทำในไฟล์ Action
                 $.ajax({
-                    url : "musical_action.php",
+                    url: "musical_action.php",
                     type: "post",
                     data: frmData,
-                    contentType:false,
-                    processData:false,                    
-                    success: function(data){
+                    contentType: false,
+                    processData: false,
+                    success: function(data) {
                         let result = JSON.parse(data);
-                        if (result.status == "success"){
+                        if (result.status == "success") {
                             console.log("Success", result)
                             swal.fire({
-                                title :"สำเร็จ",
-                                text : result.msg,
-                                icon :result.status,
-                                timer : 3000
-                            }).then(function(){
-                                window.location.href="musical.php";
+                                title: "สำเร็จ",
+                                text: result.msg,
+                                icon: result.status,
+                                timer: 3000
+                            }).then(function() {
+                                window.location.href = "musical.php";
                             });
-                        }else{
+                        } else {
                             console.log("Error", result)
                             swal.fire("ล้มเหลว", result.msg, result.status);
                         }
@@ -135,15 +135,18 @@
             });
 
             //+++++ ปุ่มลบ +++++
-            $(".del-sub").click(function(e){
+            $(".del-sub").click(function(e) {
                 e.preventDefault();
-                var id = $(this).attr('data-id');   
-                DelConfirm({'action': 'del', 'mus_id': id});    
+                var id = $(this).attr('data-id');
+                DelConfirm({
+                    'action': 'del',
+                    'mus_id': id
+                });
             })
 
         })
 
-        function DelConfirm(dataJSON){
+        function DelConfirm(dataJSON) {
             Swal.fire({
                 title: "คูณแน่ใจ?",
                 text: "You won't be able to revert this!",
@@ -153,37 +156,35 @@
                 cancelButtonColor: "#d33",
                 confirmButtonText: "Yes, delete it!",
                 showLoaderOnConfirm: true,
-                preConfirm:function(){
-                    return new Promise(function(){
+                preConfirm: function() {
+                    return new Promise(function() {
                         $.ajax({
-                            url : "musical_action.php",
-                            type : "post",
-                            data : dataJSON,   
-                            success: function(data){
+                            url: "musical_action.php",
+                            type: "post",
+                            data: dataJSON,
+                            success: function(data) {
                                 let result = JSON.parse(data);
-                                if (result.status == "success"){
+                                if (result.status == "success") {
                                     console.log("Success", result)
                                     swal.fire({
-                                        title :"สำเร็จ",
-                                        text : result.msg,
-                                        icon : result.status,
-                                        timer : 3000
-                                    }).then(function(){
+                                        title: "สำเร็จ",
+                                        text: result.msg,
+                                        icon: result.status,
+                                        timer: 3000
+                                    }).then(function() {
                                         location.reload();
                                     });
-                                }else{
+                                } else {
                                     console.log("Error", result)
                                     swal.fire("ล้มเหลว", result.msg, result.status);
                                 }
-                            }                         
+                            }
                         })
 
                     })
                 }
             })
         }
-
-
     </script>
 
     <div class="container-fluid position-relative bg-white d-flex p-0">
@@ -196,14 +197,14 @@
         <!-- Spinner End -->
 
         <!-- Sidebar Start -->
-         
-            <?php include_once "sidebar.php";?>
+
+        <?php include_once "sidebar.php"; ?>
         <!-- Sidebar End -->
 
         <!-- Content Start -->
         <div class="content">
             <!-- Navbar Start -->
-            <?php include_once "navbar.php";?>
+            <?php include_once "navbar.php"; ?>
             <!-- Navbar End -->
 
             <!-- Table Start -->
@@ -215,68 +216,72 @@
                             <div class="search d-flex align-items-center">
                                 <h4 class="mx-3">เครื่องดนตรี</h4>
                                 <!-- search -->
-                                                             
-                                <form class="frm-search" action="" method="get">                                 
+
+                                <form class="frm-search" action="" method="get">
                                     <div class="input-group mb-3">
                                         <input type="hidden" name="strSearch" value="Y">
-                                        <input type="text" name="txtSearch" class="form-control" value="<?php echo $txtSearch;?>" placeholder="" aria-label="Button" aria-describedby=""/>
+                                        <input type="text" name="txtSearch" class="form-control" value="<?php echo $txtSearch; ?>" placeholder="" aria-label="Button" aria-describedby="" />
                                         <button class="btn btn-outline-secondary" type="submit" id="">
                                             <i class="fa-solid fa-magnifying-glass"></i>
                                         </button>
-                                    </div> 
-                                 </form> 
+                                    </div>
+                                </form>
                                 <!-- end search -->
                                 <div class="flex-grow-1"></div>
                                 <button type="button" id="add-sub" class="add-sub btn btn-primary ms-3" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo"><i class="fa-solid fa-plus"></i> เพิ่มเครื่องดนตรี</button>
                             </div>
                             <!-- end header table -->
-                            
-                            <div class="table-responsive" >
+
+                            <div class="table-responsive">
                                 <table class="table">
                                     <thead>
                                         <tr>
                                             <th scope="col" class="col-1">#</th>
                                             <th scope="col">ชื่อเครื่องดนตรี</th>
-                                            <th scope="col" >รายละเอียดเครื่องดนตรี</th>
+                                            <th scope="col">รายละเอียดเครื่องดนตรี</th>
                                             <th scope="col">รูปเครื่องดนตรี</th>
                                             <th scope="col">คำสั่ง</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $i = 1;
-                                            $resultadm = $conn->query($sql);  
-                                            if ($resultadm->num_rows == 0){
-                                                echo "<p><td colspan='4' class='text-center'>No data available</td></p>";
-                                            }else{
-                                                while($row=$resultadm->fetch_assoc()){
+                                        $i = 1;
+                                        $resultadm = $conn->query($sql);
+                                        if ($resultadm->num_rows == 0) {
+                                            echo "<p><td colspan='4' class='text-center'>No data available</td></p>";
+                                        } else {
+                                            while ($row = $resultadm->fetch_assoc()) {
                                         ?>
-                                        <tr>
-                                            <th scope="row"><?php echo $row['mus_id'];?></th>
-                                            <td><?php echo $row['mus_name'];?></td>                                            
-                                            <td><?php echo substr($row['mus_detail'],0,500);?></td> 
-                                            <?php
-                                                $mus_id=$row['mus_id'];
-                                                $sqlimg="SELECT * FROM tb_musical_img WHERE mus_id ='$mus_id'";
-                                                $resultimg=$conn->query($sqlimg);
-                                                $img=$resultimg->fetch_assoc();                                                
-                                            ?>
-                                            <td><img class="rounded" src="img/musical/<?php echo $img['imgm_name'];?>" style="height:80px;" alt=""></td> 
-                                            
-                                            <td>
-                                                <a href="musical_edit.php?mus_id=<?=$row["mus_id"];?>"><botton class="edit-sub btn btn-square btn-outline-secondary m-0"><i class="far fa-edit"></i></botton></a>
-                                                <botton class="del-sub btn btn-square btn-outline-danger m-0" id="del-sub" data-id="<?=$row["mus_id"];?>"><i class="far fa-trash-alt"></i></botton>
-                                            </td>
-                                        </tr>
-                                        <?php $i++; }}?>
+                                                <tr>
+                                                    <th scope="row"><?php echo $i++; ?></th>
+                                                    <td><?php echo $row['mus_name']; ?></td>
+                                                    <td><?php echo substr($row['mus_detail'], 0, 500); ?></td>
+                                                    <?php
+                                                    $mus_id = $row['mus_id'];
+                                                    $sqlimg = "SELECT * FROM tb_musical_img WHERE mus_id ='$mus_id'";
+                                                    $resultimg = $conn->query($sqlimg);
+                                                    $img = $resultimg->fetch_assoc();
+                                                    ?>
+                                                    <td><img class="rounded" src="img/musical/<?php echo $img['imgm_name']; ?>" style="height:80px;" alt=""></td>
+
+                                                    <td>
+                                                        <a href="musical_edit.php?mus_id=<?= $row["mus_id"]; ?>">
+                                                            <botton class="edit-sub btn btn-square btn-outline-secondary m-0"><i class="far fa-edit"></i></botton>
+                                                        </a>
+                                                        <botton class="del-sub btn btn-square btn-outline-danger m-0" id="del-sub" data-id="<?= $row["mus_id"]; ?>"><i class="far fa-trash-alt"></i></botton>
+                                                    </td>
+                                                </tr>
+                                        <?php
+                                            }
+                                        } ?>
                                     </tbody>
                                 </table>
-                            </div>                            
+                            </div>
                             <div>
-                                <div class="d-flex me-2" >
+                                <div class="d-flex me-2">
                                     <?php include_once "lib/pagination/pagination-btn.php"; ?>
-                                </div>                                
-                            </div>    
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -291,26 +296,26 @@
                             <h5 id="title-modal" class="modal-title"></h5>
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
-                    
+
                         <div class="modal-body">
                             <form enctype="multipart/form-data" id="frm-modal" name="frm">
                                 <!-- Data Detail -->
-                                 <input type="hidden" name="action" id="action" class="action">
-                                 <input type="hidden" name="mus_id" id="mus_id" class="mus_id">
+                                <input type="hidden" name="action" id="action" class="action">
+                                <input type="hidden" name="mus_id" id="mus_id" class="mus_id">
                                 <div class="form-floating mb-3">
                                     <input type="text" name="mus_name" class="mus_name form-control" id="floatingInput" placeholder="">
                                     <label for="floatingInput">ชื่อเครื่องดนตรี</label>
-                                </div>   
-                                
+                                </div>
+
                                 <div class="form-floating mb-3">
                                     <textarea name="mus_detail" class="mus_detail form-control" style="height: 200px;" id="floatingTextarea" placeholder=""></textarea>
                                     <label for="floatingTextarea">รายละเอียด</label>
-                                </div>  
+                                </div>
 
                                 <div class="mb-3 text-end">
                                     เพิ่มรูป : <button type="button" class="Add-InputFile btn btn-primary" id="Add-InputFile"><i class="fa-solid fa-plus"></i></button>
-                                </div>                              
-  
+                                </div>
+
                                 <!-- Data Image -->
                                 <div class="NewInput mb-3 border" id="NewInput">
                                     <div class="mb-1 text-center d-flex justifile-center align-items-center">
@@ -325,14 +330,14 @@
                                     <button type="submit" name="submit" class="btn btn-success">ตกลง</button>
                                 </div>
                             </form>
-                        </div>                    
+                        </div>
                     </div>
                 </div>
             </div>
             <!-- end Modal -->
 
             <!-- Footer Start -->
-                <?php include_once "footer.php";?>
+            <?php include_once "footer.php"; ?>
             <!-- Footer End -->
         </div>
         <!-- Content End -->
@@ -351,7 +356,7 @@
     <script src="lib/owlcarousel/owl.carousel.min.js"></script>
     <script src="lib/tempusdominus/js/moment.min.js"></script>
     <script src="lib/tempusdominus/js/moment-timezone.min.js"></script>
-    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>    
+    <script src="lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
@@ -362,32 +367,28 @@
 
         imgInput.onchange = evt => {
             const [file] = imgInput.files;
-                if (file) {
-                    previewImg.src = URL.createObjectURL(file)
+            if (file) {
+                previewImg.src = URL.createObjectURL(file)
             }
         }
     </script>
 
     <!-- Add Input File -->
-     <script type="text/javascript">
-        
-        $('#Add-InputFile').click(function(){
-            NewRowAdd=          
-                '<div class="mb-1 text-center d-flex justifile-center align-items-center" id="row">'+
-                '<input type="file" class="form-control my-1" id="imgInput" name="mus_img[]" style="width: 75%;">'+
-                '<img src="" class="img_adm mx-3" loading="lazy" width="50px" id="previewImg" alt="">'+
-                '<button type="button" class="Del-InputFile btn btn-danger" id="Del-InputFile"><i class="fa-solid fa-xmark"></i></button>'+
+    <script type="text/javascript">
+        $('#Add-InputFile').click(function() {
+            NewRowAdd =
+                '<div class="mb-1 text-center d-flex justifile-center align-items-center" id="row">' +
+                '<input type="file" class="form-control my-1" id="imgInput" name="mus_img[]" style="width: 75%;">' +
+                '<img src="" class="img_adm mx-3" loading="lazy" width="50px" id="previewImg" alt="">' +
+                '<button type="button" class="Del-InputFile btn btn-danger" id="Del-InputFile"><i class="fa-solid fa-xmark"></i></button>' +
                 '</div>';
-            $('#NewInput').append(NewRowAdd);         
+            $('#NewInput').append(NewRowAdd);
         })
-        
-        $("body").on('click','#Del-InputFile',function(){
+
+        $("body").on('click', '#Del-InputFile', function() {
             $(this).parents('#row').remove();
         })
-
-        
-
-     </script>
+    </script>
 
 </body>
 

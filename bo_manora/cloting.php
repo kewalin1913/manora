@@ -245,7 +245,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $i = 1;
+                                            $i = $start + 1;
                                             $resultadm = $conn->query($sql);  
                                             if ($resultadm->num_rows == 0){
                                                 echo "<p><td colspan='4' class='text-center'>No data available</td></p>";
@@ -253,7 +253,7 @@
                                                 while($row=$resultadm->fetch_assoc()){
                                         ?>
                                         <tr>
-                                            <th scope="row"><?php echo $row['clo_id'];?></th>
+                                            <th scope="row"><?php echo $i;?></th>
                                             <td><?php echo $row['clo_name'];?></td>                                            
                                             <td><?php echo substr($row['clo_detail'],0,500);?></td> 
                                             <?php

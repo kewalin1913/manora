@@ -80,7 +80,7 @@
                 <img src="img/carousel/p4.jpg" class="d-block w-100 c-img" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>รำโบราณให้ทานไฟ</h5>
-                    <p>Some representative placeholder content for the third slide.</p>
+                    <p>ต.นาไม้ไผ่ อ.ทุ่งสง จ.นครศรีธรรมราช</p>
                 </div>
             </div>
         </div>
