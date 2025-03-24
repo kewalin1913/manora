@@ -348,7 +348,7 @@ $sql .= " LIMIT $start,$rows_per_page";
                                                         <?php } ?>
                                                     </td>
                                                 </tr>
-                                        <?php }
+                                        <?php } $i++;
                                         } ?>
                                     </tbody>
                                 </table>
