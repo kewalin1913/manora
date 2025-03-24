@@ -313,6 +313,7 @@ $sql .= " LIMIT $start,$rows_per_page";
                                     </thead>
                                     <tbody>
                                         <?php
+                                        $i = 1;
                                         $resultadm = $conn->query($sql);
                                         if ($resultadm->num_rows < 0) {
                                             echo "<p><td colspan='5' class='text-center'>No data available</td></p>";
@@ -320,7 +321,7 @@ $sql .= " LIMIT $start,$rows_per_page";
                                             while ($row = $resultadm->fetch_assoc()) {
                                         ?>
                                                 <tr>
-                                                    <th scope="row"><?php echo $row['adm_id']; ?></th>
+                                                <th scope="row"><?php echo 'AM00' . sprintf('%02d', $i); ?></th>
                                                     <td><?php echo $row['adm_name']; ?></td>
                                                     <td><?php echo $row['adm_lname']; ?></td>
                                                     <td><?php echo $row['adm_username']; ?></td>
