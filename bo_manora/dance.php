@@ -258,7 +258,7 @@
                                                 while($row=$resultadm->fetch_assoc()){
                                         ?>
                                         <tr>
-                                            <th scope="row"><?php echo $row['dan_id'];?></th>
+                                            <th scope="row"><?php echo $i;?></th>
                                             <td><?php echo $row['dan_name'];?></td>                                            
                                             <td><?php echo substr($row['dan_detail'],0,500);?></td> 
                                             <?php
