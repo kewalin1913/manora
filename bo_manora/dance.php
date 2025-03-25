@@ -250,7 +250,7 @@
                                     </thead>
                                     <tbody>
                                         <?php
-                                            $i = 1;
+                                            $i = $start + 1;
                                             $resultadm = $conn->query($sql);  
                                             if ($resultadm->num_rows == 0){
                                                 echo "<p><td colspan='5' class='text-center'>No data available</td></p>";

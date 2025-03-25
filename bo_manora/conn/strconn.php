@@ -5,6 +5,7 @@
     // $password="";
     // $dbname="db_manora";
 
+    // ส่วนที่เชื่อมต่อกับฐานข้อมูลใน host
     $servername="manora.mrluciana.com";
     $username="mrlu_manora";
     $password="%1ekg8N70";

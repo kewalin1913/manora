@@ -218,7 +218,7 @@
                                         <label for="floatingTextarea">รายละเอียด</label>
                                     </div>  
 
-                                    <!-- Data VDO -->
+                                    <!-- Data VDO โค้ดนี้ใช้สำหรับ อัปโหลดและแสดงวิดีโอท่ารำ โดยไฟล์วิดีโอที่อัปโหลดจะถูกเก็บไว้ และนำมาแสดงใน <video> ให้ผู้ใช้สามารถรับชมได้--> 
                                     <div class="h6 py-2 mb-2 border-bottom">
                                         CLIP ท่ารำ :
                                     </div>
