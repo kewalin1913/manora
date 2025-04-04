@@ -1,4 +1,6 @@
 <?php
+
+
     include "conn/strconn.php";
     include "lib/DateThai.php";
 
@@ -22,7 +24,7 @@
     }
     
     // กำหนดหน้า
-    $rows_per_page = 5;
+    $rows_per_page = 6;
     include_once "lib/pagination/pagination.php";
     $sql.=" LIMIT $start,$rows_per_page";     
 ?>

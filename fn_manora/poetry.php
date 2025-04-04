@@ -15,7 +15,7 @@ if (isset($_GET['strSearch'])) {
     $txtSearch = "";
 }
 // กำหนดหน้า
-$rows_per_page = 12;
+$rows_per_page = 3;
 include_once "lib/pagination/pagination.php";
 $sql .= " LIMIT $start,$rows_per_page";
 ?>

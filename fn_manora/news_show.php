@@ -1,5 +1,6 @@
 <?php
-    include "conn/strconn.php";
+
+   include "conn/strconn.php";
     include "lib/DateThai.php";
 
     if(isset($_GET['news_id'])){

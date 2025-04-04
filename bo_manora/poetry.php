@@ -168,12 +168,13 @@
         function DelConfirm(dataJSON){
             Swal.fire({
                 title: "คูณแน่ใจ?",
-                text: "You won't be able to revert this!",
+                text: "คุณต้องการลบรายการนี้หรือไม่",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "ยกลิก",
+                confirmButtonText: "ใช่",
                 showLoaderOnConfirm: true,
                 preConfirm:function(){
                     return new Promise(function(){

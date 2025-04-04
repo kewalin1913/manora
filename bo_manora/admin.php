@@ -213,12 +213,13 @@ $sql .= " LIMIT $start,$rows_per_page";
         function DelConfirm(dataJSON) {
             Swal.fire({
                 title: "คูณแน่ใจ?",
-                text: "You won't be able to revert this!",
+                text: "คุณต้องการลบรายการนี้หรือไม่",
                 icon: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#3085d6",
                 cancelButtonColor: "#d33",
-                confirmButtonText: "Yes, delete it!",
+                cancelButtonText: "ยกลิก",
+                confirmButtonText: "ใช่",
                 showLoaderOnConfirm: true,
                 preConfirm: function() {
                     return new Promise(function() {
@@ -334,7 +335,7 @@ $sql .= " LIMIT $start,$rows_per_page";
                                                         }
                                                         ?>
                                                     </td>
-                                                    <td><img class="admimg rounded-circle" src="img/adm/<?php echo $row['adm_img']; ?>" style="width: 50px; height:50px;" alt=""></td>
+                                                    <td><img class="admimg rounded-circle" src="img/adm/<?php echo $row['adm_img']; ?>" style="width: 50px; height:50px;" alt=<?php echo $row['adm_img']; ?>></td>
                                                     <td>
                                                         <?php if ($row['adm_id'] != "AM001") { ?>
                                                             <botton class="edit-sub btn btn-square btn-outline-secondary m-0" id="edit-sub" data-bs-toggle="modal" data-bs-target="#userModal" data-bs-whatever="@mdo"
@@ -364,78 +365,83 @@ $sql .= " LIMIT $start,$rows_per_page";
             <!-- Table End -->
 
             <!-- Modal Add -->
-            <div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 id="title-modal" class="modal-title"></h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="title-modal" class="modal-title"></h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <form enctype="multipart/form-data" id="frm-modal" name="frm">
+                    <!-- Data Detail -->
+                    <!-- Hidden fields -->
+                    <style>
+                        #action,
+                        #adm_id {
+                            display: none;
+                        }
+                    </style>
+                    <input type="text" name="action" id="action" class="action">
+                    <input type="text" name="adm_id" id="adm_id" class="adm_id">
+
+                    <div class="row">
+                        <!-- Column 1 -->
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="adm_name" class="adm_name form-control" id="floatingInput" placeholder="">
+                                <label for="floatingInput">ชื่อ :</label>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <input type="text" name="adm_username" class="adm_username form-control" id="floatingInput" placeholder="">
+                                <label for="floatingInput">ชื่อผู้ใช้ :</label>
+                            </div>
+                            <div class="form-floating mb-3 position-relative">
+                                <input type="password" name="adm_pwd" class="adm_pwd InputPwd form-control" id="floatingInput" placeholder="">
+                                <label for="floatingInput">รหัสผ่าน :</label>
+                                <i class="fa-regular fa-eye-slash ShowPwd" style="position: absolute; right: 15px; top: 18px; cursor: pointer;"></i>
+                            </div>
                         </div>
-
-                        <div class="modal-body">
-                            <form enctype="multipart/form-data" id="frm-modal" name="frm">
-                                <!-- Data Detail -->
-
-                                <!-- ซ่อนช่องที่ไม่จำเป็น -->
-                                <style>
-                                    #action,
-                                    #adm_id {
-                                        display: none;
-                                    }
-                                </style>
-
-                                <!-- ช่องที่ซ่อนไว้ -->
-                                <input type="text" name="action" id="action" class="action" >
-                                <input type="text" name="adm_id" id="adm_id" class="adm_id" >
-
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="adm_name" class="adm_name form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">ชื่อ :</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="adm_lname" class="adm_lname form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">นามสกุล :</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="text" name="adm_username" class="adm_username form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">ชื่อผู้ใช้ :</label>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" name="adm_pwd" class="adm_pwd InputPwd form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">รหัสผ่าน :</label>
-                                    <i class="fa-regular fa-eye-slash ShowPwd"></i>
-                                </div>
-                                <div class="form-floating mb-3">
-                                    <input type="password" name="adm_repwd" class="adm_repwd InputPwd2 form-control" id="floatingInput" placeholder="">
-                                    <label for="floatingInput">ยื่นยันรหัสผ่าน :</label>
-                                    <i class="fa-regular fa-eye-slash ShowPwd2"></i>
-                                </div>
-
-                                <!-- สถานะเข้าใช้งานระบบ -->
-                                <div class="form-floating mb-3">
-                                    <select class="adm_status form-select" id="floatingSelect adm_status" name="adm_status" aria-label="Floating label select example">
-                                        <option value="" selected>-- เลือก --</option>
-                                        <option value="1">ปกติ</option>
-                                        <option value="0">ยกเลิก</option>
-                                    </select>
-                                    <label for="floatingSelect">สถานะเข้าใช้งานระบบ : </label>
-                                </div>
-
-                                <!-- Data Image -->
-                                <div class="mb-3 text-center">
-                                    <input type="file" class="form-control mb-3" id="imgInput" name="adm_img">
-                                    <img src="" class="img_adm" loading="lazy" width="50%" id="previewImg" alt="">
-                                </div>
-                                <!-- Button -->
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
-                                    <button type="submit" name="submit" class="btn btn-success">ตกลง</button>
-                                </div>
-                            </form>
+                        
+                        <!-- Column 2 -->
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3">
+                                <input type="text" name="adm_lname" class="adm_lname form-control" id="floatingInput" placeholder="">
+                                <label for="floatingInput">นามสกุล :</label>
+                            </div>
+                            <div class="form-floating mb-3 position-relative">
+                                <input type="password" name="adm_repwd" class="adm_repwd InputPwd2 form-control" id="floatingInput" placeholder="">
+                                <label for="floatingInput">ยืนยันรหัสผ่าน :</label>
+                                <i class="fa-regular fa-eye-slash ShowPwd2" style="position: absolute; right: 15px; top: 18px; cursor: pointer;"></i>
+                            </div>
+                            <div class="form-floating mb-3">
+                                <select class="adm_status form-select" id="floatingSelect adm_status" name="adm_status" aria-label="Floating label select example">
+                                    <option value="" selected>-- เลือก --</option>
+                                    <option value="1">ปกติ</option>
+                                    <option value="0">ยกเลิก</option>
+                                </select>
+                                <label for="floatingSelect">สถานะเข้าใช้งานระบบ : </label>
+                            </div>
                         </div>
                     </div>
-                </div>
+
+                    <!-- Image upload (full width) -->
+                    <div class="mb-3 text-center">
+                        <input type="file" class="form-control mb-3" id="imgInput" name="adm_img">
+                        <img src="" class="img_adm" loading="lazy" width="50%" id="previewImg" alt="">
+                    </div>
+                    
+                    <!-- Button -->
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">ยกเลิก</button>
+                        <button type="submit" name="submit" class="btn btn-success">ตกลง</button>
+                    </div>
+                </form>
             </div>
+        </div>
+    </div>
+</div>
             <!-- end Modal Add -->
 
             <!-- Footer Start -->

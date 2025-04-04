@@ -1,15 +1,15 @@
 <?php
     // ประกาศตัวแปร
-    // $servername="localhost";
-    // $username="root";
-    // $password="";
-    // $dbname="db_manora";
+      $servername="localhost";
+      $username="root";
+      $password="";
+      $dbname="db_manora";
 
     // ส่วนที่เชื่อมต่อกับฐานข้อมูลใน host
-    $servername="manora.mrluciana.com";
-    $username="mrlu_manora";
-    $password="%1ekg8N70";
-    $dbname="manora-db";
+    //$servername="manora.mrluciana.com";
+    //$username="mrlu_manora";
+    //$password="%1ekg8N70";
+    //$dbname="manora-db";
 
     // create connection
     //$conn=mysqli_connect($servername,$username,$password,$dbname);
