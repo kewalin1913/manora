@@ -1,8 +1,8 @@
 <?php
     // ประกาศตัวแปร
       $servername="localhost";
-      $username="root";
-      $password="";
+      $username="manora_db";
+      $password="Qf1fp738_";
       $dbname="db_manora";
 
     // ส่วนที่เชื่อมต่อกับฐานข้อมูลใน host

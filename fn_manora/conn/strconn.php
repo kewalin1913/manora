@@ -1,8 +1,8 @@
 <?php
     // ประกาศตัวแปร
     $servername="localhost";
-    $username="root";
-    $password="";
+    $username="manora_db";
+    $password="Qf1fp738_";
     $dbname="db_manora";
 
     // $servername="manora.mrluciana.com";
